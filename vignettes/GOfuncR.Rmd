@@ -70,6 +70,7 @@ parameter | default | description
 `annotations`| NULL | optional dataframe with GO-annotations (overrides `organismDb` and `orgDb`)
 `gene_coords`| NULL | optional dataframe with gene-coordinates (overrides `organismDb` and `txDb`)
 `godir`| NULL | optional directory with ontology graph tables to use instead of the integrated GO-graph 
+`seed`| NULL | optional seed for the RNG used in the randomsets 
 
 
 # Examples of GO-enrichment analyses for human genes   

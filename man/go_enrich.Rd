@@ -12,7 +12,7 @@ Wilcoxon rank-sum, binomial or 2x2 contingency table test.
 \usage{
 go_enrich(genes, test = 'hyper', n_randsets = 1000, organismDb = 'Homo.sapiens', gene_len = FALSE,
     regions = FALSE, circ_chrom = FALSE, silent = FALSE, domains = NULL, orgDb = NULL,
-    txDb = NULL, annotations = NULL, gene_coords = NULL,  godir = NULL)
+    txDb = NULL, annotations = NULL, gene_coords = NULL,  godir = NULL, seed = NULL)
 }
 
 \arguments{
@@ -92,6 +92,12 @@ Note that each gene has to be unique in the data.frame; e.g. for \code{test='wil
     (files 'term.txt', 'term2term.txt' and 'graph_path.txt').
     Alternative to the default integrated GO-graph.\cr
     For details please refer to the package's vignette.
+}
+
+\item{seed}{
+    optional numeric() specifying a seed for the RNG used in the randomsets.\cr
+    Using \code{set.seed()} outside of \code{go_enrich()} may lead to inconsistent
+    results, since calls inside \code{go_enrich()}, e.g. loading a database, can change the RNG.
 }
 
 

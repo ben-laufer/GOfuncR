@@ -2,7 +2,7 @@
 # run "FUNC" with integrated GO-graph and GO-annotations from OrganismDb or OrgDb packages
 # wilcoxon rank test, hypergeometric test, binomial test, 2x2-contingency-test
 
-go_enrich=function(genes, test="hyper", n_randsets=1000, organismDb="Homo.sapiens", gene_len=FALSE, regions=FALSE, circ_chrom=FALSE, silent=FALSE, domains=NULL, orgDb=NULL, txDb=NULL, annotations=NULL, gene_coords=NULL, godir=NULL)
+go_enrich=function(genes, test="hyper", n_randsets=1000, organismDb="Homo.sapiens", gene_len=FALSE, regions=FALSE, circ_chrom=FALSE, silent=FALSE, domains=NULL, orgDb=NULL, txDb=NULL, annotations=NULL, gene_coords=NULL, godir=NULL, seed=NULL)
 {
     
     #####   1. Check arguments and define parameters
@@ -115,6 +115,9 @@ go_enrich=function(genes, test="hyper", n_randsets=1000, organismDb="Homo.sapien
         if (length(multi_coords) > 0){
             stop("Genes with multiple coordinates in 'gene_coords': ", paste(multi_coords,collapse=", "))
         }
+    }
+    if (!is.null(seed) && !is.numeric(seed)){
+        stop("Please use a numeric value as seed.")
     }
     
     # evaluate database + go + opt combinations and get table including versions
@@ -293,6 +296,9 @@ go_enrich=function(genes, test="hyper", n_randsets=1000, organismDb="Homo.sapien
 #       system(paste("cp ",directory,"_infile-data ", directory, "_infile_data_", root_id, sep=""))
         
         if (!silent) message("Run Func...\n")
+        if (!is.null(seed)){
+            set.seed(seed)
+        }
         if (test == "hyper"){
             if (regions & circ_chrom){
                 hyper_randset(paste0(directory,"_",root_id), n_randsets, directory, go_paths[1], go_paths[2], go_paths[3], root_id, "roll" , silent)
